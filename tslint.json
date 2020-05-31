@@ -1,0 +1,33 @@
+{
+    "defaultSeverity": "error",
+    "extends": [
+        "tslint:recommended"
+    ],
+    "jsRules": {},
+    "rules": {
+        "quotemark": [true, "single"],
+        "no-var-requires": true,
+        "triple-equals": true,
+        "no-invalid-template-strings": true,
+        "no-shadowed-variable": false,
+        "max-line-length": false,
+        "only-arrow-functions": false,
+        "variable-name": false,
+        "jsdoc-format": false,
+        "radix": false,
+        "no-empty": false,
+        "max-classes-per-file": false,
+        "interface-name": false,
+        "one-variable-per-declaration": true,
+        "curly": true,
+        "no-string-literal":false,
+        "semicolon": [
+            true,
+            "always"
+        ],
+       
+        "prefer-const": true,
+        "no-unused-expression": false
+    },
+    "rulesDirectory": []
+}
