@@ -38,6 +38,8 @@ server.setConfig((app) => {
 
 const app = server.build();
 app.listen(PORT);
-logger.info(`Server started on port ${PORT} :)`);
+ logger.info(`Server started on port ${PORT} :)`);
+// console.log(`Server started on port ${PORT} :)`);
 
 exports = module.exports = app;
+
