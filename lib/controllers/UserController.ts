@@ -16,6 +16,7 @@ import {IAuthService} from '../services/base/IAuthService';
 import {CREATED, OK, SERVER_ERROR, UNAUTHORIZED} from '../shared/HttpStatusCodes';
 import {NextFunction} from 'express';
 import {TYPES} from '../types/type';
+import {NoteRepository} from "../repositories/NoteRepository";
 
 
 @controller('/api/v1/user')
@@ -23,18 +24,30 @@ export class UserController extends BaseHttpController {
     constructor(@inject(UserService) private userService: IUserService,
                 @inject(HashService) private hashService: IHashService,
                 @inject(JwtService) private jwtService: IJwtService,
-                @inject(AuthService) private authService: IAuthService) {
+                @inject(AuthService) private authService: IAuthService,
+                @inject(NoteRepository) private noteRepository: NoteRepository) {
         super();
 
     }
 
     @httpPost('', validate(userValidator))
-    public async create(@requestBody()user: User,next:NextFunction) {
+    public async create(@requestBody()user: User, next: NextFunction) {
         try {
             user.password = await this.hashService.getHashedPassword(user.password);
             const dbUser = await this.userService.create(user);
             const token = await this.jwtService.getToken({_id: dbUser['_id'], email: dbUser.email});
             return this.json(getContent(CREATED, '', [{token, token_type: 'Bearer'}]), CREATED.code);
+        } catch (e) {
+            return this.json(getContent(SERVER_ERROR, e.message, []), SERVER_ERROR.code);
+
+        }
+    }
+
+    @httpPost('/note', validate(userValidator))
+    public async createNote(@requestBody()user: User, next: NextFunction) {
+        try {
+            await this.noteRepository.add({note: "sat"})
+            return this.json(getContent(CREATED, '', []), CREATED.code);
         } catch (e) {
             return this.json(getContent(SERVER_ERROR, e.message, []), SERVER_ERROR.code);
 
@@ -60,7 +73,7 @@ export class UserController extends BaseHttpController {
     @httpGet('', TYPES.AuthMiddleware)
     public async getUser(@requestBody() body: any) {
         try {
-            return this.json(getContent(OK, '', [{user:body.user}]), OK.code);
+            return this.json(getContent(OK, '', [{user: body.user}]), OK.code);
         } catch (e) {
             return this.json(getContent(SERVER_ERROR, e.message, []), SERVER_ERROR.code);
         }

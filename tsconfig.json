@@ -1,21 +1,15 @@
 {
-  "compilerOptions": {
-    "module": "commonjs",
-    "moduleResolution": "node",
-    "pretty": true,
-    "types": ["reflect-metadata","jest"],
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "sourceMap": true,
-    "target": "es6",
-    "outDir": "./dist",
-    "baseUrl": "./lib"
-
-  },
-  "include": [
-    "lib/**/*.ts"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+   "compilerOptions": {
+      "lib": [
+         "es5",
+         "es6"
+      ],
+      "target": "es5",
+      "module": "commonjs",
+      "moduleResolution": "node",
+      "outDir": "./build",
+      "emitDecoratorMetadata": true,
+      "experimentalDecorators": true,
+      "sourceMap": true
+   }
 }

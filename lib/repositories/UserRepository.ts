@@ -19,3 +19,4 @@ export class UserRepository extends Repository<UserDocument, User> implements IU
         return super.get(_id);
     }
 }
+

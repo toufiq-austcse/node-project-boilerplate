@@ -5,9 +5,8 @@ import {InversifyExpressServer} from 'inversify-express-utils';
 import * as bodyParser from 'body-parser';
 import {buildProviderModule} from 'inversify-binding-decorators';
 import {Container} from 'inversify';
-import {connectToDatabase} from './config/database';
+import {connectToMongoDatabase, connectToSqlDB} from './config/database';
 import {configCors} from './config/cors.config';
-
 import './controllers';
 
 import models from './models/models';
@@ -30,7 +29,8 @@ server.setConfig((app) => {
         extended: true
     }));
     configCors(app);
-    connectToDatabase(app);
+    connectToMongoDatabase(app);
+    connectToSqlDB();
     app.use(bodyParser.json());
     app.use('/', express.static('public'));
 
@@ -38,8 +38,9 @@ server.setConfig((app) => {
 
 const app = server.build();
 app.listen(PORT);
- logger.info(`Server started on port ${PORT} :)`);
+logger.info(`Server started on port ${PORT} :)`);
 // console.log(`Server started on port ${PORT} :)`);
+
 
 exports = module.exports = app;
 
