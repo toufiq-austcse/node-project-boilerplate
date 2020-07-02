@@ -4,7 +4,7 @@
    "description": "",
    "main": "index.js",
    "scripts": {
-      "prebuild": "tslint -c tslint.json -p tsconfig.json --fix",
+      "lint": "tslint -c tslint.json -p tsconfig.json --fix",
       "build": "tsc",
       "dev": "ts-node ./lib/bootstrap.ts",
       "start": "ts-node src/index.ts",
@@ -30,6 +30,7 @@
       "mysql": "^2.18.1",
       "nodemon": "^2.0.2",
       "reflect-metadata": "^0.1.10",
+      "tsconfig-paths": "^3.9.0",
       "tslint": "^6.1.2",
       "typeorm": "0.2.25",
       "uniqid": "^5.2.0",

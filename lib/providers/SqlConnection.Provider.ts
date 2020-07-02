@@ -1,14 +1,18 @@
-import {Connection, createConnection} from "typeorm";
+import {Connection, createConnection} from 'typeorm';
 
 export class SqlConnectionProvider {
-    private static connection: Connection;
+    static connection: Connection;
 
-    public static async getConnection(): Promise<Connection> {
-        if (SqlConnectionProvider.connection) {
-            return SqlConnectionProvider.connection;
-        }
-
-        SqlConnectionProvider.connection = await createConnection();
-        return SqlConnectionProvider.connection;
+    constructor() {
+        console.log('Initializing SQL Connection Provider');
     }
+
+    static async connectionSetup() {
+        if (!this.connection) {
+            this.connection = await createConnection();
+        }
+        return this.connection;
+    }
+
+
 }

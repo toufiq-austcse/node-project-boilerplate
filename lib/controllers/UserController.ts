@@ -16,7 +16,7 @@ import {IAuthService} from '../services/base/IAuthService';
 import {CREATED, OK, SERVER_ERROR, UNAUTHORIZED} from '../shared/HttpStatusCodes';
 import {NextFunction} from 'express';
 import {TYPES} from '../types/type';
-import {NoteRepository} from "../repositories/NoteRepository";
+import {NoteRepository} from '../repositories/NoteRepository';
 
 
 @controller('/api/v1/user')
@@ -43,16 +43,6 @@ export class UserController extends BaseHttpController {
         }
     }
 
-    @httpPost('/note', validate(userValidator))
-    public async createNote(@requestBody()user: User, next: NextFunction) {
-        try {
-            await this.noteRepository.add({note: "sat"})
-            return this.json(getContent(CREATED, '', []), CREATED.code);
-        } catch (e) {
-            return this.json(getContent(SERVER_ERROR, e.message, []), SERVER_ERROR.code);
-
-        }
-    }
 
     @httpPost('/auth')
     public async auth(@requestBody() body: any) {

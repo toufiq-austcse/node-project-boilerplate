@@ -1,6 +1,6 @@
 /**
  * Created by WebStorm
- * User: Md. Toufiqul Islam
+ * Note: Md. Toufiqul Islam
  * Date: 5/26/2020
  * Time: 1:03 PM
 
@@ -19,10 +19,12 @@ import {inject} from 'inversify';
 import {LinkService} from '../services/LinkService';
 import {ILinkService} from '../services/base/ILinkService';
 import {TYPES} from '../types/type';
+import {NoteRepository} from '../repositories/NoteRepository';
 
 @controller('/api/v1/link')
 export class LinkController extends BaseHttpController {
-    constructor(@inject(LinkService) private linkService: ILinkService) {
+    constructor(@inject(LinkService) private linkService: ILinkService,
+                @inject(NoteRepository) private noteRepository: NoteRepository) {
         super();
     }
 

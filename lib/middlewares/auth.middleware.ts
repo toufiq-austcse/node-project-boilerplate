@@ -30,7 +30,7 @@ export class AuthMiddleware extends BaseMiddleware {
             const decodedToken = this.jwtService.verify(accessToken);
             const user = await this.userService.getByUserId(decodedToken['_id']);
             if (!user) {
-                return res.status(UNAUTHORIZED.code).json(getContent(UNAUTHORIZED, 'User Not Found', []));
+                return res.status(UNAUTHORIZED.code).json(getContent(UNAUTHORIZED, 'Note Not Found', []));
             }
             req.body.user = _.omit(user,['password']);
             next();

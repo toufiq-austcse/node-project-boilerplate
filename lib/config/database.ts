@@ -2,7 +2,6 @@ import {Application} from 'express';
 import * as mongoose from 'mongoose';
 import * as Environment from '../environments';
 import logger from './log';
-import {SqlConnectionProvider} from "../providers/SqlConnection.Provider";
 
 
 const DB_PASSWORD = process.env.DB_PWD || '';
@@ -86,9 +85,3 @@ export function connectToMongoDatabase(app: Application) {
     app.set('dbClient', mongoose);
 }
 
-export function connectToSqlDB() {
-    SqlConnectionProvider.getConnection().then(c => {
-        const {options} = c as any;
-        console.log(`Connected To ${options.host}:${options.port}/${options.database} DB`);
-    }).catch(err => console.log(err))
-}
